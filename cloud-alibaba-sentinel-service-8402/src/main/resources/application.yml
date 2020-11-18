@@ -1,0 +1,21 @@
+server:
+  port: 8402
+
+spring:
+  application:
+    name: sentinel-service2
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        # sentinel 还会在 8719 这个端口起一个服务和 sentinel-dashboard 通信（发心跳）
+        port: 8719
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

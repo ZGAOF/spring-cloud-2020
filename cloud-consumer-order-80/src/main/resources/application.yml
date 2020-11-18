@@ -1,0 +1,22 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: cloud-consumer-order
+  sleuth:
+    sampler:
+      # 采样值，0到1之间，1表示全部采样
+      probability: 1
+  zipkin:
+    base-url: http://localhost:9411/
+
+# Eureka Client
+eureka:
+  client:
+    # 是否将自己注册到Eureka Server
+    register-with-eureka: true
+    # 是否从Eureka Server抓取已有的注册信息，单节点无所谓，集群必须配合Ribbon进行负载均衡
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka

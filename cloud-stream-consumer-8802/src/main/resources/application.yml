@@ -1,0 +1,41 @@
+server:
+  port: 8802
+
+spring:
+  application:
+    name: stream-consumer
+  cloud:
+    stream:
+      binders:
+        defaultRabbit:
+          type: rabbit
+      bindings:
+        input:
+          destination: zzfExchange
+          content-type: application/json
+          binder: defaultRabbit
+          group: zzf
+
+  rabbitmq:
+    host: 192.168.43.101
+    port: 5672
+    username: guest
+    password: guest
+
+# Eureka Client
+eureka:
+  client:
+    # 是否将自己注册到Eureka Server
+    register-with-eureka: true
+    # 是否从Eureka Server抓取已有的注册信息，单节点无所谓，集群必须配合Ribbon进行负载均衡
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  #      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+  instance:
+    instance-id: stream-consumer-8802
+    prefer-ip-address: true
+    # client多少秒向服务器发送一次心跳（默认30）
+    lease-renewal-interval-in-seconds: 2
+    # server端收到最后一次心跳后的等待时间上限
+    lease-expiration-duration-in-seconds: 5

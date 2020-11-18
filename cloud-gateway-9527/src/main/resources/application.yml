@@ -1,0 +1,40 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          # 开启动态路由，通过服务名称来查找对应调用地址
+          enabled: true
+
+      routes:
+#        - id: payment_route_8001_1
+#          uri: http://localhost:8001
+#          predicates:
+#            - Path=/payment/create
+        - id: payment_route_lb
+          uri: lb://cloud-payment-service
+          predicates:
+#            - After=2020-11-04T22:53:10.240+08:00[Asia/Shanghai]
+#            - Cookie=name, zzf
+            - Header=X-Request-Id, \d+
+            - Path=/payment/port
+
+
+
+eureka:
+  instance:
+    # Eureka的服务端实例名称
+    hostname: cloud-gateway-service
+  client:
+    # false表示不向注册中心注册自己
+    register-with-eureka: true
+    # 不做服务检索，只作为注册中心，维护服务
+    fetch-registry: true
+    service-url:
+      # 设置与 Eureka Server 交互的地址查询服务和注册服务都需要依赖这个地址 (服务暴露的地址)
+      defaultZone: http://eureka7001.com:7001/eureka

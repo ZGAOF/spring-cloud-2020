@@ -1,0 +1,20 @@
+server:
+  port: 3377
+
+spring:
+  profiles:
+    active: info
+  application:
+    name: nacos-config
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        file-extension: yaml
+        server-addr: localhost:8848
+        group: INFO_GROUP
+        namespace: 783925e5-bd43-4172-aa10-b37e2d23522d
+
+
+    # ${prefix}-${spring.profiles.active}.${file-extension}

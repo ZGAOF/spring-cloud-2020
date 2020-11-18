@@ -1,0 +1,37 @@
+server:
+  port: 8002
+
+spring:
+  application:
+    name: cloud-payment-service
+  devtools:
+    restart:
+      enabled: true
+
+  # 数据库连接池
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://eureka7001.com:3306/spring_cloud_2020?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: zzfroot1.
+
+# MyBatis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapperLocations: classpath:mapper/*.xml
+  type-aliases-package: cn.zzf.spring.cloud.payment.entity
+
+# Eureka Client
+eureka:
+  client:
+    # 是否将自己注册到Eureka Server
+    register-with-eureka: true
+    # 是否从Eureka Server抓取已有的注册信息，单节点无所谓，集群必须配合Ribbon进行负载均衡
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: payment02
+    prefer-ip-address: true
